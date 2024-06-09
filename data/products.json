@@ -1,0 +1,33 @@
+[
+    {
+      "id": "1",
+      "nama": "Nasi Goreng",
+      "deskripsi": "Nasi goreng dengan ayam dan telur",
+      "harga": 15000,
+      "stok": 10,
+      "tanggalDaluwarsa": "2024-12-31",
+      "kategori": "Makanan",
+      "gambar": "/uploads/nasi_goreng.jpg"
+    },
+    {
+      "id": "2",
+      "nama": "Donat",
+      "deskripsi": "Donatnya Gurih-gurih nyoi",
+      "harga": 20000,
+      "stok": 5,
+      "tanggalDaluwarsa": "2024-12-31",
+      "kategori": "Makanan",
+      "gambar": "/uploads/Donat2.jpg"
+    },
+    {
+      "id": "3",
+      "nama": "Ketiwowww",
+      "deskripsi": "Ketiwaiwowwowerw",
+      "harga": 10000,
+      "stok": 20,
+      "tanggalDaluwarsa": "2024-12-31",
+      "kategori": "Makanan",
+      "gambar": "/uploads/Kwetiaw.jpg"
+    }
+  ]
+  

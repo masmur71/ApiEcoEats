@@ -1,0 +1,16 @@
+[
+    {
+      "id": "1",
+      "nama": "nadhif",
+      "password": "123",
+      "namaToko": "Toko Satu",
+      "role": "penjual"
+    },
+    {
+      "id": "2",
+      "nama": "ghina",
+      "password": "123",
+      "role": "pembeli"
+    }
+  ]
+  

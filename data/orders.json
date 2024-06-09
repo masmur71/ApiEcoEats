@@ -1,0 +1,13 @@
+[
+    {
+      "id": "1",
+      "namaProduk": "Nasi Goreng",
+      "harga": 15000
+    },
+    {
+      "id": "2",
+      "namaProduk": "Sate Ayam",
+      "harga": 20000
+    }
+  ]
+  
