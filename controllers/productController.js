@@ -18,6 +18,21 @@ const productController = {
         });
     },
 
+    getAllProducts: (req, res) => {
+        Product.findAll((err, results) => {
+            if (err) return res.status(500).send(err);
+            res.status(200).send(results);
+        });
+    },
+
+    searchProducts: (req, res) => {
+        const name = req.query.name;
+        Product.searchByName(name, (err, results) => {
+            if (err) return res.status(500).send(err);
+            res.status(200).send(results);
+        });
+    },
+
     updateProduct: (req, res) => {
         const id = req.params.id;
         const data = req.body;
