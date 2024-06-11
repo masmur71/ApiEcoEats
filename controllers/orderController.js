@@ -17,6 +17,21 @@ const orderController = {
         });
     },
 
+    getAllOrders: (req, res) => {
+        Order.findAll((err, results) => {
+            if (err) return res.status(500).send(err);
+            res.status(200).send(results);
+        });
+    },
+
+    getOrdersBySellerId: (req, res) => {
+        const penjualId = req.params.penjualId;
+        Order.findBySellerId(penjualId, (err, results) => {
+            if (err) return res.status(500).send(err);
+            res.status(200).send(results);
+        });
+    },
+
     updateOrder: (req, res) => {
         const id = req.params.id;
         const data = req.body;
