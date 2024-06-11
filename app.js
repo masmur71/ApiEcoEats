@@ -2,28 +2,42 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
-const cors = require('cors');
-
-const productRoutes = require('./routes/products');
-const userRoutes = require('./routes/users');
-const orderRoutes = require('./routes/orders');
-const uploadRoutes = require('./routes/uploads');
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// Body Parser Middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Multer Setup for File Uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage: storage });
+
+// Static Folder
 app.use('/uploads', express.static('uploads'));
 
+// Database Connection
+require('./config/db');
+
+// Routes
+const buyerRoutes = require('./routes/buyerRoutes');
+const sellerRoutes = require('./routes/sellerRoutes');
+const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
+app.use('/api/buyers', buyerRoutes);
+app.use('/api/sellers', sellerRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
-app.use('/api/upload', uploadRoutes);
 
-// Rute default untuk menangani permintaan GET ke root URL
-app.get('/', (req, res) => {
-  res.send('Welcome to the Food Marketplace API');
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

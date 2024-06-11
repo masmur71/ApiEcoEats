@@ -1,62 +1,38 @@
-const fs = require('fs');
-const path = require('path');
-const ordersFilePath = path.join(__dirname, '../data/orders.json');
+const Order = require('../models/Order');
 
-const readOrders = () => {
-  return JSON.parse(fs.readFileSync(ordersFilePath, 'utf8'));
+const orderController = {
+    createOrder: (req, res) => {
+        const data = req.body;
+        Order.create(data, (err, result) => {
+            if (err) return res.status(500).send(err);
+            res.status(201).send(result);
+        });
+    },
+
+    getOrderById: (req, res) => {
+        const id = req.params.id;
+        Order.findById(id, (err, result) => {
+            if (err) return res.status(500).send(err);
+            res.status(200).send(result);
+        });
+    },
+
+    updateOrder: (req, res) => {
+        const id = req.params.id;
+        const data = req.body;
+        Order.update(id, data, (err, result) => {
+            if (err) return res.status(500).send(err);
+            res.status(200).send(result);
+        });
+    },
+
+    deleteOrder: (req, res) => {
+        const id = req.params.id;
+        Order.delete(id, (err, result) => {
+            if (err) return res.status(500).send(err);
+            res.status(200).send(result);
+        });
+    }
 };
 
-const writeOrders = (data) => {
-  fs.writeFileSync(ordersFilePath, JSON.stringify(data, null, 2));
-};
-
-exports.getAllOrders = (req, res) => {
-  const orders = readOrders();
-  res.json(orders);
-};
-
-exports.getOrderById = (req, res) => {
-  const orders = readOrders();
-  const order = orders.find(o => o.id === req.params.id);
-  if (order) {
-    res.json(order);
-  } else {
-    res.status(404).json({ message: 'Order not found' });
-  }
-};
-
-exports.createOrder = (req, res) => {
-  const orders = readOrders();
-  const newOrder = {
-    id: (orders.length + 1).toString(),
-    ...req.body
-  };
-  orders.push(newOrder);
-  writeOrders(orders);
-  res.status(201).json(newOrder);
-};
-
-exports.updateOrder = (req, res) => {
-  const orders = readOrders();
-  const index = orders.findIndex(o => o.id === req.params.id);
-  if (index !== -1) {
-    const updatedOrder = { ...orders[index], ...req.body };
-    orders[index] = updatedOrder;
-    writeOrders(orders);
-    res.json(updatedOrder);
-  } else {
-    res.status(404).json({ message: 'Order not found' });
-  }
-};
-
-exports.deleteOrder = (req, res) => {
-  const orders = readOrders();
-  const index = orders.findIndex(o => o.id === req.params.id);
-  if (index !== -1) {
-    orders.splice(index, 1);
-    writeOrders(orders);
-    res.json({ message: 'Order deleted' });
-  } else {
-    res.status(404).json({ message: 'Order not found' });
-  }
-};
+module.exports = orderController;
