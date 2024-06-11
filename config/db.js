@@ -1,21 +1,19 @@
 // config/db.js
 const mysql = require('mysql');
 
-// Konfigurasi koneksi database
-const db = mysql.createConnection({
-    host: 'localhost',    // Ganti dengan host database Anda jika berbeda
-    user: 'root',         // Ganti dengan username database Anda
-    password: '',         // Ganti dengan password database Anda
-    database: 'ecoeats'   // Nama database yang Anda buat
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'EcoEats'
 });
 
-// Menghubungkan ke database
-db.connect((err) => {
+connection.connect((err) => {
     if (err) {
-        console.error('Error connecting to the database:', err);
+        console.error('Database connection failed: ' + err.stack);
         return;
     }
-    console.log('MySQL is connected...');
+    console.log('Connected to database.');
 });
 
-module.exports = db;
+module.exports = connection;

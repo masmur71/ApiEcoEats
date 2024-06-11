@@ -38,6 +38,11 @@ app.use('/api/sellers', sellerRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 
+// Root Route
+app.get('/', (req, res) => {
+    res.send('EcoEats server is running');
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
